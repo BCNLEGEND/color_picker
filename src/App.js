@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Palette {...seedPalette[3]} />
+        <Palette palette={generatePalette(seedPalette[3])} />
       </div>
     );
   }
