@@ -17,10 +17,10 @@ export default class Palette extends Component {
     this.setState({ format: val });
   };
   render() {
-    const { colors } = this.props.palette;
+    const { colors, paletteName, emoji } = this.props.palette;
     const { level, format } = this.state;
     const ColorBoxes = colors[level].map((color) => (
-      <ColorBox background={color[format]} name={color.name} />
+      <ColorBox background={color[format]} name={color.name} key={color.id} />
     ));
     return (
       <div className="Palette">
@@ -30,12 +30,11 @@ export default class Palette extends Component {
           changeLevel={this.changeLevel}
           changeFormat={this.changeFormat}
         />
-        {/* Navbar will go here */}
-        <div className="Palette__colors">
-          {ColorBoxes}
-          {/* a bunch of colorboxes to be rendered here */}
-        </div>
-        {/* Footer will go here */}
+        <div className="Palette__colors">{ColorBoxes}</div>
+        <footer className="Palette__footer">
+          {paletteName}
+          <span className="Palette__footer-emoji">{emoji}</span>
+        </footer>
       </div>
     );
   }
