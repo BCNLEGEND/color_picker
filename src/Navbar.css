@@ -1,0 +1,68 @@
+.Navbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 6vh;
+}
+.Navbar__logo {
+  margin-right: 15px;
+  padding: 0 13px;
+  display: flex;
+  align-items: center;
+  background-color: #eceff1;
+  font-family: Roboto;
+  height: 100%;
+}
+
+.Navbar__logo a {
+  text-decoration: none;
+  color: black;
+}
+
+.Navbar__container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Navbar__span {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.Navbar__slider {
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  width: 340px;
+  height: 40px;
+}
+
+.rc-slider-track {
+  background: transparent;
+}
+
+.rc-slider-rail {
+  height: 8px;
+}
+
+.rc-slider-handle,
+.rc-slider-handle:hover,
+.rc-slider-handle:focus,
+.rc-slider-handle:active {
+  outline: none;
+  background: green;
+  border: 2px solid green;
+  box-shadow: none;
+  width: 13px;
+  height: 13px;
+  margin-left: -7px;
+  margin-top: -3px;
+}
+
+.Navbar__select {
+  margin-left: auto;
+  margin-right: 20px;
+}
