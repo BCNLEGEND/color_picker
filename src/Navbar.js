@@ -29,18 +29,20 @@ export default class Navbar extends Component {
         <div className="Navbar__logo">
           <Link to="/">Elige tu Color</Link>
         </div>
-        <div className="Navbar__container">
-          <span className="Navbar__span">level: {level}</span>
-          <div className="Navbar__slider">
-            <Slider
-              defaultValue={level}
-              min={100}
-              max={900}
-              step={100}
-              onAfterChange={changeLevel}
-            />
+        {this.props.showLevel && (
+          <div className="Navbar__container">
+            <span className="Navbar__span">level: {level}</span>
+            <div className="Navbar__slider">
+              <Slider
+                defaultValue={level}
+                min={100}
+                max={900}
+                step={100}
+                onAfterChange={changeLevel}
+              />
+            </div>
           </div>
-        </div>
+        )}
         <div className="Navbar__select">
           <Select value={format} onChange={this.handleFormatChange}>
             <MenuItem value="hex">Hex - #ffffff</MenuItem>

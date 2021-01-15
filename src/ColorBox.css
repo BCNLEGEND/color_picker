@@ -8,7 +8,16 @@
   margin-bottom: -3.5px;
 }
 
-.ColorBox__copy-btn {
+.SingleColorpalette .ColorBox {
+  background-color: black;
+}
+
+.SingleColorpalette .ColorBox {
+  height: 50%;
+}
+
+.ColorBox__copy-btn,
+.ColorBox__back {
   width: 100px;
   height: 30px;
   position: absolute;
@@ -21,6 +30,12 @@
   font-size: 1rem;
   line-height: 30px;
   border: none;
+  text-decoration: none;
+  color: #fff;
+  text-align: center;
+}
+
+.ColorBox__copy-btn {
   opacity: 0;
 }
 

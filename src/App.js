@@ -4,6 +4,7 @@ import Palette from "./Palette";
 import seedPalette from "./seedColors";
 import { generatePalette } from "./colorHelpers";
 import PaletteList from "./PaletteList";
+import SingleColorPalette from "./SingleColorpalette";
 
 class App extends Component {
   findPalette = (id) => {
@@ -27,6 +28,18 @@ class App extends Component {
               palette={generatePalette(
                 this.findPalette(routeProps.match.params.id)
               )}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/palette/:paletteId/:colorId"
+          render={(routeProps) => (
+            <SingleColorPalette
+              palette={generatePalette(
+                this.findPalette(routeProps.match.params.paletteId)
+              )}
+              colorId={routeProps.match.params.colorId}
             />
           )}
         />
