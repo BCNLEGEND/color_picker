@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withStyles } from "@material-ui/styles";
 import Slider from "rc-slider";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -6,10 +7,10 @@ import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { Link } from "react-router-dom";
+import styles from "./styles/NavbarStyles";
 import "rc-slider/assets/index.css";
-import "./Navbar.css";
 
-export default class Navbar extends Component {
+class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = { open: true };
@@ -23,16 +24,16 @@ export default class Navbar extends Component {
     this.setState({ open: false });
   };
   render() {
-    const { level, changeLevel, format } = this.props;
+    const { level, changeLevel, format, classes } = this.props;
     return (
-      <nav className="Navbar">
-        <div className="Navbar__logo">
+      <nav className={classes.Navbar}>
+        <div className={classes.NavbarLogo}>
           <Link to="/">Elige tu Color</Link>
         </div>
         {this.props.showLevel && (
-          <div className="Navbar__container">
-            <span className="Navbar__span">level: {level}</span>
-            <div className="Navbar__slider">
+          <div className={classes.NavbarContainer}>
+            <span className={classes.NavbarSpan}>level: {level}</span>
+            <div className={classes.NavbarSlider}>
               <Slider
                 defaultValue={level}
                 min={100}
@@ -43,7 +44,7 @@ export default class Navbar extends Component {
             </div>
           </div>
         )}
-        <div className="Navbar__select">
+        <div className={classes.NavbarSelect}>
           <Select value={format} onChange={this.handleFormatChange}>
             <MenuItem value="hex">Hex - #ffffff</MenuItem>
             <MenuItem value="rgb">RGB - rgb(255, 255, 255)</MenuItem>
@@ -78,3 +79,5 @@ export default class Navbar extends Component {
     );
   }
 }
+
+export default withStyles(styles)(Navbar);

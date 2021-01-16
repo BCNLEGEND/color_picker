@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Link } from "react-router-dom";
-import "./ColorBox.css";
+import { withStyles } from "@material-ui/styles";
+import styles from "./styles/ColorBoxStyles";
 
-export default class ColorBox extends Component {
+class ColorBox extends Component {
   constructor(props) {
     super(props);
     this.state = { copied: false };
@@ -15,27 +16,31 @@ export default class ColorBox extends Component {
   };
 
   render() {
-    const { background, name, moreUrl, showLink } = this.props;
+    const { background, name, moreUrl, singleColorBox, classes } = this.props;
     const { copied } = this.state;
     return (
       <CopyToClipboard text={background} onCopy={this.changeCopyState}>
-        <div className="ColorBox" style={{ background }}>
+        <div className={classes.colorBox} style={{ background }}>
           <div
             style={{ background }}
-            className={`ColorBox__copy-overlay ${copied && "show"}`}
+            className={`${classes.colorBoxCopyOverlay} ${
+              copied && classes.copyOverlayShow
+            }`}
           />
-          <div className={`ColorBox__copy-msg ${copied && "show"}`}>
+          <div
+            className={`${classes.copyMsg} ${copied && classes.copyMsgShow}`}
+          >
             <h1>Copied</h1>
-            <p>{background}</p>
+            <p className={classes.copyText}>{background}</p>
           </div>
-          <div className="ColorBox__copy-container"></div>
-          <div className="ColorBox__content">
-            <span>{name}</span>
+          <div></div>
+          <div className={classes.colorBoxContent}>
+            <span className={classes.copyText}>{name}</span>
           </div>
-          <button className="ColorBox__copy-btn">Copy</button>
-          {showLink && (
+          <button className={classes.colorBoxCopyBtn}>Copy</button>
+          {!singleColorBox && (
             <Link to={moreUrl} onClick={(e) => e.stopPropagation()}>
-              <span className="ColorBox__more">More</span>
+              <span className={classes.colorBoxMore}>MORE</span>
             </Link>
           )}
         </div>
@@ -43,3 +48,5 @@ export default class ColorBox extends Component {
     );
   }
 }
+
+export default withStyles(styles)(ColorBox);
