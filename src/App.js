@@ -8,18 +8,38 @@ import SingleColorPalette from "./SingleColorpalette";
 import NewPaletteForm from "./NewPaletteForm";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      colorPalettes: [...seedPalette],
+    };
+  }
+
   findPalette = (id) => {
-    return seedPalette.find((palette) => palette.id === id);
+    return this.state.colorPalettes.find((palette) => palette.id === id);
   };
+
+  submitColorPalette = (newColorPalette) => {
+    this.setState({
+      colorPalettes: [...this.state.colorPalettes, newColorPalette],
+    });
+  };
+
   render() {
     return (
       <Switch>
-        <Route exact path="/palette/new" render={() => <NewPaletteForm />} />
+        <Route
+          exact
+          path="/palette/new"
+          render={(routeProps) => (
+            <NewPaletteForm submit={this.submitColorPalette} {...routeProps} />
+          )}
+        />
         <Route
           exact
           path="/"
           render={(routeProps) => (
-            <PaletteList palettes={seedPalette} {...routeProps} />
+            <PaletteList palettes={this.state.colorPalettes} {...routeProps} />
           )}
         />
         <Route
@@ -46,9 +66,6 @@ class App extends Component {
           )}
         />
       </Switch>
-      // <div className="App">
-      //   <Palette palette={generatePalette(seedPalette[3])} />
-      // </div>
     );
   }
 }
