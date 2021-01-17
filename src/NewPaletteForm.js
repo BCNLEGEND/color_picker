@@ -82,7 +82,8 @@ export default function NewPaletteForm(props) {
   const [open, setOpen] = useState(true);
   const [currentColor, setCurrentColor] = useState("teal");
   const [paletteColors, setPaletteColors] = useState([]);
-  const [newName, setNewName] = useState("");
+  const [newColorName, setNewColorName] = useState("");
+  const [newPaletteName, setNewPaletteName] = useState("");
 
   const handleDrawerOpen = () => {
     setOpen(!open);
@@ -97,19 +98,23 @@ export default function NewPaletteForm(props) {
   };
 
   const addToPaletteColors = () => {
-    const color = { color: currentColor, name: newName };
+    const color = { color: currentColor, name: newColorName };
     setPaletteColors([...paletteColors, color]);
-    setNewName("");
+    setNewColorName("");
   };
-  const handleTextChange = (e) => {
-    setNewName(e.target.value);
+  const handleChange = (e) => {
+    console.log(e);
+    if (e.target.name === "newColorName") {
+      setNewColorName(e.target.value);
+    } else if (e.target.name === "newPaletteName")
+      setNewPaletteName(e.target.value);
   };
 
   const submitPalette = () => {
-    const newPaletteName = "My best palette ever";
+    const newName = newPaletteName;
     const newPalette = {
-      paletteName: newPaletteName,
-      id: newPaletteName.replace(/ /, "-"),
+      paletteName: newName,
+      id: newName.replace(/ /, "-"),
       colors: paletteColors,
     };
     props.submit(newPalette);
@@ -128,13 +133,21 @@ export default function NewPaletteForm(props) {
       return paletteColors.every(({ color }) => color !== currentColor);
     });
   });
+  useEffect(() => {
+    ValidatorForm.addValidationRule("isPaletteUnique", (value) => {
+      return props.palettes.every(
+        ({ paletteName }) =>
+          paletteName.toLowerCase() !== newPaletteName.toLowerCase()
+      );
+    });
+  });
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
         position="fixed"
-        color="defailt"
+        color="default"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
@@ -152,9 +165,21 @@ export default function NewPaletteForm(props) {
           <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography>
-          <Button variant="contained" color="primary" onClick={submitPalette}>
-            Save Palette
-          </Button>
+          <ValidatorForm onSubmit={submitPalette}>
+            <TextValidator
+              value={newPaletteName}
+              name="newPaletteName"
+              onChange={handleChange}
+              validators={["required", "isPaletteUnique"]}
+              errorMessages={[
+                "Enter Palette name",
+                "Palette name already excists",
+              ]}
+            />
+            <Button variant="contained" color="primary" type="submit">
+              Save Palette
+            </Button>
+          </ValidatorForm>
           <Button variant="contained" color="secondary">
             Back
           </Button>
@@ -190,9 +215,9 @@ export default function NewPaletteForm(props) {
         />
         <ValidatorForm onSubmit={addToPaletteColors} instantValidate={false}>
           <TextValidator
-            value={newName}
-            name={newName}
-            onChange={handleTextChange}
+            value={newColorName}
+            name="newColorName"
+            onChange={handleChange}
             validators={["required", "isColorNameUnique", "isColorUnique"]}
             errorMessages={[
               "this field is required",

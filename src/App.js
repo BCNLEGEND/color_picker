@@ -32,7 +32,11 @@ class App extends Component {
           exact
           path="/palette/new"
           render={(routeProps) => (
-            <NewPaletteForm submit={this.submitColorPalette} {...routeProps} />
+            <NewPaletteForm
+              submit={this.submitColorPalette}
+              {...routeProps}
+              palettes={this.state.colorPalettes}
+            />
           )}
         />
         <Route
