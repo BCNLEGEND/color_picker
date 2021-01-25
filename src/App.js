@@ -18,6 +18,11 @@ class App extends Component {
   findPalette = (id) => {
     return this.state.colorPalettes.find((palette) => palette.id === id);
   };
+  deletePalette = (id) => {
+    this.setState((st) => ({
+      colorPalettes: st.colorPalettes.filter((palette) => palette.id !== id),
+    }));
+  };
 
   submitColorPalette = (newColorPalette) => {
     this.setState({
@@ -43,7 +48,11 @@ class App extends Component {
           exact
           path="/"
           render={(routeProps) => (
-            <PaletteList palettes={this.state.colorPalettes} {...routeProps} />
+            <PaletteList
+              palettes={this.state.colorPalettes}
+              {...routeProps}
+              deletePalette={this.deletePalette}
+            />
           )}
         />
         <Route
