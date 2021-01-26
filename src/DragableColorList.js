@@ -12,6 +12,7 @@ const DragableColorList = SortableContainer(({ colors, deleteColor }) => {
           color={color.color}
           name={color.name}
           handleClick={() => deleteColor(color.name)}
+          distance={20}
         >
           {color}
         </DragableColorBox>
