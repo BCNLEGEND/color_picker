@@ -1,6 +1,6 @@
 # Color Picker created with react
 
-### Initial state it contains 9 color Palettes:
+### Initial state contains 9 color Palettes:
 
 ![ColorPickerFront](https://user-images.githubusercontent.com/48514700/105853102-9d87bc00-5fe5-11eb-8353-bd49a4029f55.jpg)
 
